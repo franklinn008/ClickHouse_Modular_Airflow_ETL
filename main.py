@@ -1,7 +1,7 @@
 #importing pre-defined functions
-from helpers import get_client, get_postgres_engine
-from extract import fetch_data
-from load import load_csv_to_postgres
+from modules.helpers import get_client, get_postgres_engine
+from modules.extract import fetch_data
+from modules.load import load_csv_to_postgres
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 

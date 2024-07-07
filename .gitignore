@@ -1,2 +1,6 @@
 *.env
 *.csv
+dockerfile
+docker-compose.yaml
+.dockerignore
+logs

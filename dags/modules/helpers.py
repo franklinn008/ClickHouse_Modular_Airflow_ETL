@@ -1,6 +1,6 @@
 import sqlalchemy
-import clickhouse_connect
 from sqlalchemy import create_engine
+import clickhouse_connect
 from dotenv import load_dotenv
 import os
 
@@ -34,9 +34,9 @@ def get_client():
 
     return client
 
-def get_postgres_engine():
+def get_snowflake_engine():
     '''
-    Construct a SQLAlchemy engine object for a PostgreSQL DB from environment variables.
+    Construct a SQLAlchemy engine object for a Snowflake DB from environment variables.
 
     Parameters:
         None
@@ -45,19 +45,15 @@ def get_postgres_engine():
         sqlalchemy.engine.Engine: The SQLAlchemy engine object.
     '''
     engine = create_engine(
-        "postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}".format(
-            user=os.getenv('pg_user'),
-            password=os.getenv('pg_password'),
-            host=os.getenv('pg_host'),
-            port=os.getenv('pg_port'),
-            dbname=os.getenv('pg_dbname')
+        "snowflake://{user}:{password}@{account_identifier}/{database}/{schema}?warehouse={warehouse}".format(
+            user=os.getenv('sn_user'),
+            password=os.getenv('sn_password'),
+            account_identifier=os.getenv('sn_account_identifier'),
+            database=os.getenv('sn_database'),
+            schema=os.getenv('sn_schema'),
+            warehouse=os.getenv('sn_warehouse')
         )
     )
     return engine
 
-# Example usage
-#if __name__ == "__main__":
-    #engine = get_postgres_engine()
-    #print("PostgreSQL engine created:", engine)
-    #client = get_client()
-    #print("ClickHouse client created:", client)
+
